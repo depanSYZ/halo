@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="XTE Uploader API Documentation">
+    <title>Docs | XTE Uploader</title>
+    <link rel="stylesheet" href="/assets/style.css">
+    <style>
+        .terminal-box {
+            background: #080810;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+        .terminal-header {
+            background: #111118;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .terminal-dot.red { background: #ff5f56; opacity: 0.7; }
+        .terminal-dot.yellow { background: #ffbd2e; opacity: 0.7; }
+        .terminal-dot.green { background: #27c93f; opacity: 0.7; }
+        .terminal-title {
+            margin-left: 10px;
+            font-size: 10px;
+            color: var(--gray-400);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .terminal-body {
+            padding: 14px 16px;
+            background: #080810;
+        }
+        .terminal-prompt {
+            color: var(--accent);
+            font-weight: 700;
+            margin-right: 10px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .terminal-text {
+            color: #c8c8e8;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+        }
+        .endpoint-content {
+            position: relative;
+            z-index: 10;
+        }
+        .endpoint-body-inner {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="docs-page">
+    <div class="docs-container">
+
+        <div class="docs-section">
+            <a href="/" class="back-btn">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back
+            </a>
+        </div>
+
+        <div class="docs-header-section mb-6">
+            <span class="brand-label" style="font-size:9px; font-weight:700; letter-spacing:0.35em; color:var(--accent); text-transform:uppercase; font-family:'JetBrains Mono',monospace; margin-bottom:6px; display:block;">// XTE Uploader</span>
+            <h1 class="text-3xl font-black tracking-tighter mb-2">
+                API DOCS
+            </h1>
+            <p class="text-sm" style="color:var(--gray-500); letter-spacing:0.05em;">Public API for file uploads via CDN</p>
+        </div>
+
+        <div class="docs-section">
+            <span class="docs-label">Base URL</span>
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">shell</span>
+                </div>
+                <div class="terminal-body">
+                    <span class="terminal-prompt">$</span>
+                    <span class="terminal-text" id="base-url">https://clickme.web.id</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="docs-section">
+            <span class="docs-label">Endpoints</span>
+
+            <div class="endpoint-box hard-box">
+                <div class="endpoint-header post-api">
+                    <span class="method">POST</span>
+                    <span class="path">/api/upload</span>
+                </div>
+                <div class="endpoint-body">
+                    <div class="endpoint-content">
+                        <p class="endpoint-desc">Upload file to the server. Public endpoint — no authentication required.</p>
+                        <div class="endpoint-info">
+                            <span class="endpoint-badge">Public</span>
+                            <span class="endpoint-badge">25MB Max</span>
+                            <span class="endpoint-badge">20 req/min</span>
+                        </div>
+                        <div class="response-box">
+                            <span class="response-label">Request</span>
+                            <ul class="docs-list">
+                                <li>Content-Type: multipart/form-data</li>
+                                <li>Field: file (binary)</li>
+                            </ul>
+                        </div>
+                        <div class="response-box">
+                            <span class="response-label">Response</span>
+                            <pre class="response-code">{"status":true,"result":{"name":"abc.jpg","url":"https://domain.com/files/abc.jpg","mime":"image/jpeg","isNew":true}}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="endpoint-box hard-box">
+                <div class="endpoint-header get">
+                    <span class="method">GET</span>
+                    <span class="path">/files/:filename</span>
+                </div>
+                <div class="endpoint-body">
+                    <div class="endpoint-content">
+                        <p class="endpoint-desc">Retrieve uploaded file via jsDelivr CDN. Supports HTTP Range for video streaming.</p>
+                        <div class="endpoint-info">
+                            <span class="endpoint-badge">Public</span>
+                            <span class="endpoint-badge">Range: Yes</span>
+                            <span class="endpoint-badge">CDN: Global</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="endpoint-box hard-box">
+                <div class="endpoint-header get">
+                    <span class="method">GET</span>
+                    <span class="path">/health</span>
+                </div>
+                <div class="endpoint-body">
+                    <div class="endpoint-content">
+                        <p class="endpoint-desc">Health check endpoint for monitoring service status.</p>
+                        <div class="response-box">
+                            <span class="response-label">Response</span>
+                            <pre class="response-code">{"status":"ok","timestamp":"2025-03-28T13:00:00.000Z","uptime":3600.5}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="docs-section">
+            <span class="docs-label">Rate Limits</span>
+            <div class="hard-box docs-warn p-4 hard-shadow-static">
+                <ul class="docs-list" style="margin: 0; padding-left: 0;">
+                    <li style="padding: 6px 0; border-bottom: 1px solid rgba(255, 51, 102, 0.15);">
+                        <strong>API Upload:</strong> 20 requests / minute per IP
+                    </li>
+                    <li style="padding: 6px 0;">
+                        <strong>File Download:</strong> Unlimited (CDN cached)
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="docs-section">
+            <span class="docs-label">Supported File Types</span>
+            <div class="hard-box docs-success p-4 hard-shadow-static">
+                <div class="tag-container">
+                    <span class="type-tag">JPEG</span>
+                    <span class="type-tag">PNG</span>
+                    <span class="type-tag">WEBP</span>
+                    <span class="type-tag">GIF</span>
+                    <span class="type-tag">MP4</span>
+                    <span class="type-tag">WEBM</span>
+                    <span class="type-tag">MOV</span>
+                </div>
+                <p class="text-xs" style="margin: 12px 0 0; color: var(--green-600); font-weight: 700; letter-spacing: 0.05em;">
+                    ✓ MIME type validation enforced server-side
+                </p>
+            </div>
+        </div>
+
+        <div class="docs-section">
+            <span class="docs-label">Code Examples</span>
+
+            <div class="code-example">
+                <div class="code-header">
+                    <span class="code-title">JavaScript</span>
+                    <button class="copy-btn" onclick="copyCode('code-fetch')">Copy</button>
+                </div>
+                <pre class="docs-code" id="code-fetch">const fd = new FormData()
+fd.append('file', fileInput.files[0])
+
+const res = await fetch('/api/upload', {
+  method: 'POST',
+  body: fd
+})
+
+const data = await res.json()
+console.log(data.result.url)</pre>
+            </div>
+
+            <div class="code-example">
+                <div class="code-header">
+                    <span class="code-title">cURL</span>
+                    <button class="copy-btn" onclick="copyCode('code-curl')">Copy</button>
+                </div>
+                <pre class="docs-code" id="code-curl">curl -X POST https://clickme.web.id/api/upload \
+  -F "file=@image.jpg"
+
+# Response:
+# {"status":true,"result":{"name":"abc.jpg","url":"https://..."}}</pre>
+            </div>
+
+            <div class="code-example">
+                <div class="code-header">
+                    <span class="code-title">Python</span>
+                    <button class="copy-btn" onclick="copyCode('code-python')">Copy</button>
+                </div>
+                <pre class="docs-code" id="code-python">import requests
+
+files = {'file': open('image.jpg', 'rb')}
+res = requests.post('https://clickme.web.id/api/upload', files=files)
+
+print(res.json()['result']['url'])</pre>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p class="footer-text">XTE Uploader</p>
+            <p class="footer-copyright">© 2025 All rights reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        function copyCode(elementId) {
+            const code = document.getElementById(elementId).textContent
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = event.target
+                const originalText = btn.innerText
+                btn.innerText = 'Copied!'
+                btn.style.background = 'var(--accent)'
+                btn.style.color = 'var(--black)'
+                btn.style.borderColor = 'var(--accent)'
+                setTimeout(() => {
+                    btn.innerText = originalText
+                    btn.style.background = ''
+                    btn.style.color = ''
+                    btn.style.borderColor = ''
+                }, 2000)
+            }).catch(() => {
+                btn.innerText = 'Failed'
+            })
+        }
+
+        // Set base URL dynamically
+        document.getElementById('base-url').textContent = window.location.origin
+    </script>
+</body>
+</html>
